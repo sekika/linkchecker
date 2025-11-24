@@ -1,0 +1,16 @@
+# Executables
+linkchecker
+
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, generated with go test -c
+*.test
+*.out
+
+# IDE/Editor temporary files
+.idea/
+.vscode/

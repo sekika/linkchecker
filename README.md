@@ -1,4 +1,4 @@
-# linkchecker
+# Link Checker for Go
 
 `linkchecker` is a command-line tool written in Go for checking links found within a specified URL or a local HTML file.
 
@@ -88,3 +88,8 @@ func main() {
     // Example of running workers (Note: RunWorkers needs a list of absolute links)
     // crawler.RunWorkers(links, url, false, make(map[string]bool), timeoutSec, 3, userAgent)
 }
+```
+
+### Code analysis
+- [English article](https://sekika.github.io/2025/11/21/go-linkchecker/)
+- [日本語の記事](https://sekika.github.io/2025/11/19/go-linkchecker/)

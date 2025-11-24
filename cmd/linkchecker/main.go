@@ -1,3 +1,15 @@
+/*
+linkchecker is a command-line tool written in Go for checking link health
+within a specified URL or a local HTML file. It manages request intervals
+to the same host to prevent accidental overload.
+
+Usage:
+
+	linkchecker -u <URL or file> [options]
+
+For detailed usage, options, and library information, please refer to the
+module root's README.md file.
+*/
 package main
 
 import (

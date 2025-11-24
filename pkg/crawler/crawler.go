@@ -96,6 +96,7 @@ func RunWorkers(
 ) {
 	base, _ := url.Parse(baseURL)
 	filteredLinks := []string{}
+	seen := map[string]struct{}{}
 
 	for _, link := range links {
 		if noInternal && isInternalLinkRaw(link) {
@@ -103,15 +104,15 @@ func RunWorkers(
 		}
 
 		u, err := base.Parse(link)
-		if err != nil {
+		if err != nil || ignoreHosts[u.Host] {
 			continue
 		}
 
-		if ignoreHosts[u.Host] {
-			continue
+		s := u.String()
+		if _, ok := seen[s]; !ok {
+			filteredLinks = append(filteredLinks, s)
+			seen[s] = struct{}{}
 		}
-
-		filteredLinks = append(filteredLinks, u.String())
 	}
 
 	if len(filteredLinks) == 0 {

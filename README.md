@@ -1,4 +1,6 @@
 # Link Checker for Go
+Concurrently checks links in URLs or local HTML files, controlling request intervals to the same host to prevent overload.
+
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/sekika/linkchecker/blob/main/README.md)
 [![ja](https://img.shields.io/badge/lang-ja-blue.svg)](https://github.com/sekika/linkchecker/blob/main/README-ja.md)
 [![fr](https://img.shields.io/badge/lang-fr-green.svg)](https://github.com/sekika/linkchecker/blob/main/README-fr.md)

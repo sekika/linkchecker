@@ -1,4 +1,6 @@
 # Link Checker for Go
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/sekika/linkchecker/blob/main/README.md)
+[![ja](https://img.shields.io/badge/lang-ja-green.svg)](https://github.com/sekika/linkchecker/blob/main/README-ja.md)
 
 `linkchecker` is a command-line tool written in Go for checking links found within a specified URL or a local HTML file.
 
@@ -99,5 +101,4 @@ func main() {
 ```
 
 ### Code analysis
-- [English article](https://sekika.github.io/2025/11/21/go-linkchecker/)
-- [日本語の記事](https://sekika.github.io/2025/11/19/go-linkchecker/)
+- [How the Go-based link checker works](https://sekika.github.io/2025/11/21/go-linkchecker/)

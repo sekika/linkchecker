@@ -98,6 +98,6 @@ func main() {
 }
 ```
 
-### Codeanalyse
+## Codeanalyse
 
 * [How the Go-based link checker works (englisch)](https://sekika.github.io/2025/11/21/go-linkchecker/)

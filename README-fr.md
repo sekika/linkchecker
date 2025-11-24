@@ -97,6 +97,6 @@ func main() {
 }
 ```
 
-### Analyse du code
+## Analyse du code
 
 * [Fonctionnement du link checker en Go (en anglais)](https://sekika.github.io/2025/11/21/go-linkchecker/)

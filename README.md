@@ -102,5 +102,5 @@ func main() {
 }
 ```
 
-### Code analysis
+## Code analysis
 - [How the Go-based link checker works](https://sekika.github.io/2025/11/21/go-linkchecker/)

@@ -3,7 +3,6 @@ package crawler
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -145,9 +144,9 @@ func RunWorkers(
 				for l := range ch {
 					err := FetchHTTP(l, client, userAgent)
 					if err != nil {
-						log.Printf("[NG] %s (%v)\n", l, err)
+						fmt.Printf("[NG] %s (%v)\n", l, err)
 					} else {
-						log.Printf("[OK] %s\n", l)
+						fmt.Printf("[OK] %s\n", l)
 					}
 					time.Sleep(time.Duration(waitSec) * time.Second) // 同じホストの間隔
 				}

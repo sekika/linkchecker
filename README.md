@@ -14,7 +14,7 @@ If you have Go installed on your system, you can install the tool using the foll
 
 ```bash
 go install github.com/sekika/linkchecker/cmd/linkchecker@latest
-````
+```
 
 ## Usage
 
@@ -30,6 +30,14 @@ linkchecker -u https://example.com/page.html
 
 # Check links in a local file
 linkchecker -u path/to/local/file.html
+```
+
+### Filtering Results (Displaying Only Failures)
+
+Since linkchecker outputs `[OK]` or `[NG]` for each checked link, you can easily filter for only the failing links using `grep`:
+
+```bash
+linkchecker -u https://example.com/page.html | grep "\[NG\]"
 ```
 
 ### Options

@@ -2,28 +2,27 @@
 
 # Name of the application binary
 BIN_NAME := linkchecker
-# Main entry point file (Updated path)
-MAIN_FILE := ./cmd/$(BIN_NAME)/main.go
+# Main package path for building and installing
+MAIN_PACKAGE := github.com/sekika/linkchecker/cmd/$(BIN_NAME)
 
 all: build
 
-# Build the binary
+# Build the binary locally in the project root
 build:
 	@echo "Building $(BIN_NAME)..."
-	go build -o $(BIN_NAME) $(MAIN_FILE)
+	go build -o $(BIN_NAME) $(MAIN_PACKAGE)
 
 # Install using the Go toolchain (Recommended)
-# This achieves the same effect as `go install github.com/sekika/linkchecker/cmd/linkchecker@latest` locally.
-install: build
+# This uses the package path to ensure the binary is correctly placed in $GOBIN ($GOPATH/bin).
+install:
 	@echo "Installing $(BIN_NAME) to $(GOPATH)/bin or equivalent..."
-	go install $(MAIN_FILE)
+	go install $(MAIN_PACKAGE)
 
-# Download and tidy dependencies
-deps:
-	@echo "Downloading and tidying dependencies..."
-	go mod tidy
-
-# Clean up built files
+# Clean up locally built binary
 clean:
-	@echo "Cleaning up..."
+	@echo "Cleaning up local binary..."
 	rm -f $(BIN_NAME)
+
+deps:
+	@echo "Fetching dependencies..."
+	go mod download

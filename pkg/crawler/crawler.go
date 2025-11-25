@@ -15,7 +15,7 @@ import (
 )
 
 // ----------------------
-// リンク抽出
+// Extract links
 // ----------------------
 
 func ExtractLinksFromFile(filename string) ([]string, error) {
@@ -56,7 +56,7 @@ func extractLinks(html string) []string {
 }
 
 // ----------------------
-// HTTP リクエスト
+// HTTP request
 // ----------------------
 
 func FetchHTTP(link string, client *http.Client, userAgent string) error {
@@ -86,7 +86,7 @@ func FetchHTTP(link string, client *http.Client, userAgent string) error {
 }
 
 // ----------------------
-// ワーカー処理
+// Run workers
 // ----------------------
 
 func RunWorkers(
@@ -124,13 +124,14 @@ func RunWorkers(
 		return
 	}
 
-	// ホストごとの専用キューと goroutine
+	// Host queues and goroutine
 	hostQueues := make(map[string]chan string)
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
-	// トランスポートを事前に定義し、TLS 設定を緩和する
-	// MinVersion: TLS 1.0 を許可することで、古いサーバーとの互換性を確保する
+	// Set `MinVersion` to `tls.VersionTLS10`. This allows the link checker to
+	// successfully perform TLS handshakes with older servers that do not support
+	// modern TLS versions (1.2/1.3), resolving "tls: handshake failure" errors.
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{
 			MinVersion: tls.VersionTLS10,
@@ -162,27 +163,25 @@ func RunWorkers(
 					} else {
 						fmt.Printf("[OK] %s\n", l)
 					}
-					time.Sleep(time.Duration(waitSec) * time.Second) // 同じホストの間隔
+					time.Sleep(time.Duration(waitSec) * time.Second)
 				}
 			}(host, ch)
 		}
 		mu.Unlock()
 
-		// リンクをホストキューに送信
+		// Send link to host queues
 		hostQueues[host] <- link
 	}
 
-	// 全てのキューを閉じる
 	for _, ch := range hostQueues {
 		close(ch)
 	}
 
-	// 全てのホストワーカーの終了を待つ
 	wg.Wait()
 }
 
 // ----------------------
-// 内部リンク判定
+// Check if it is internal link
 // ----------------------
 
 func isInternalLinkRaw(link string) bool {
@@ -194,7 +193,7 @@ func isInternalLinkRaw(link string) bool {
 }
 
 // ----------------------
-// ignoreHosts ファイル読み込み
+// Load ignoreHosts file
 // ----------------------
 
 func LoadIgnoreHosts(filename string) (map[string]bool, error) {

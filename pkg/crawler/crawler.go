@@ -1,6 +1,7 @@
 package crawler
 
 import (
+	"crypto/tls"
 	"fmt"
 	"io"
 	"net/http"
@@ -125,6 +126,14 @@ func RunWorkers(
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
+	// トランスポートを事前に定義し、TLS 設定を緩和する
+	// MinVersion: TLS 1.0 を許可することで、古いサーバーとの互換性を確保する
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			MinVersion: tls.VersionTLS10,
+		},
+	}
+
 	for _, link := range filteredLinks {
 		u, _ := url.Parse(link)
 		host := u.Host
@@ -139,8 +148,9 @@ func RunWorkers(
 				defer wg.Done()
 				jar, _ := cookiejar.New(nil)
 				client := &http.Client{
-					Timeout: time.Duration(timeoutSec) * time.Second,
-					Jar:     jar,
+					Timeout:   time.Duration(timeoutSec) * time.Second,
+					Jar:       jar,
+					Transport: tr,
 				}
 				for l := range ch {
 					err := FetchHTTP(l, client, userAgent)

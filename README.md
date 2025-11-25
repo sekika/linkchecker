@@ -116,3 +116,5 @@ func main() {
 
 ## Code analysis
 - [How the Go-based link checker works](https://sekika.github.io/2025/11/21/go-linkchecker/)
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/sekika/linkchecker.svg)](https://pkg.go.dev/github.com/sekika/linkchecker)

@@ -41,6 +41,17 @@ linkchecker は各リンクに対して `[OK]` または `[NG]` を出力する�
 linkchecker -u https://example.com/page.html | grep "\[NG\]"
 ```
 
+### ローカルディレクトリチェック用スクリプト
+
+ローカルディレクトリ内のすべての `.html` ファイルを再帰的にチェックするには、提供されているシェルスクリプトを使用します。
+
+```
+./check_local_files.sh [directory]
+```
+
+このスクリプトは、すべての `.html` ファイルに対して `linkchecker -u <file>` を実行し、ファイル名と `[NG]` の結果のみを出力します。
+
+
 ### オプション一覧
 
 | フラグ            | 説明                           | デフォルト値                        |

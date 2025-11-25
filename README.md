@@ -46,6 +46,16 @@ Since linkchecker outputs `[OK]` or `[NG]` for each checked link, you can easily
 linkchecker -u https://example.com/page.html | grep "\[NG\]"
 ```
 
+### Script for Local Directory Check
+
+For checking all `.html` files in a local directory recursively, use the provided shell script:
+
+```
+./check_local_files.sh [directory]
+```
+
+This script runs `linkchecker -u <file>` for every `.html` file and only prints the file name and the `[NG]` results.
+
 ### Options
 
 | Flag | Description | Default Value |

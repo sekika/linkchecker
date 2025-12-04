@@ -1,0 +1,80 @@
+# Link Checker for Go
+Concurrently checks links in URLs or local HTML files, controlling request intervals to the same host to prevent overload.
+
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/sekika/linkchecker/blob/main/README.md)
+[![ja](https://img.shields.io/badge/lang-ja-blue.svg)](https://github.com/sekika/linkchecker/blob/main/README-ja.md)
+[![fr](https://img.shields.io/badge/lang-fr-green.svg)](https://github.com/sekika/linkchecker/blob/main/README-fr.md)
+[![de](https://img.shields.io/badge/lang-de-yellow.svg)](https://github.com/sekika/linkchecker/blob/main/README-de.md)
+
+`linkchecker` is a command-line tool written in Go for checking links found within a specified URL or a local HTML file.
+
+Its key features include:
+
+* **Concurrency with Respect:** It checks links concurrently using multiple workers while strictly observing a customizable wait period (`-wait`) between requests to the *same host*, preventing accidental DoS or excessive load on target servers.
+* **Flexible Link Source:** It can crawl links from both remote URLs and local HTML files.
+* **Customizable Behavior:** You can easily configure the HTTP timeout, User-Agent, and selectively ignore internal links or specific hostnames via an ignore file.
+
+## Installation
+
+If you have Go installed on your system, you can install the tool using the following command:
+
+```bash
+go install github.com/sekika/linkchecker/cmd/linkchecker@latest
+```
+
+## Usage
+
+After installation, you can run the tool using the `linkchecker` command.
+
+### Basic Use
+
+Specify the target URL or local HTML file path using the `-u` flag.
+
+```bash
+# Check links on a website
+linkchecker -u https://example.com/page.html
+
+# Check links in a local file
+linkchecker -u path/to/local/file.html
+```
+
+### Filtering Results (Displaying Only Failures)
+
+Since linkchecker outputs `[OK]` or `[NG]` for each checked link, you can easily filter for only the failing links using `grep`:
+
+```bash
+linkchecker -u https://example.com/page.html | grep "\[NG\]"
+```
+
+### Script for Local Directory Check
+
+For checking all `.html` files in a local directory recursively, use the [provided shell script](https://github.com/sekika/linkchecker/blob/main/check_local_files.sh):
+
+```
+./check_local_files.sh [directory]
+```
+
+This script runs `linkchecker -u <file>` for every `.html` file and only prints the file name and the `[NG]` results.
+
+### Options
+
+| Flag | Description | Default Value |
+|---|---|---|
+| `-u` | Target URL or local HTML file (Required) | "" |
+| `-no-internal` | Do not check internal links (links within the same host/domain) | false |
+| `-ignore` | Path to a file containing a list of hosts/domains to ignore | "" |
+| `-timeout` | HTTP request timeout in seconds | 10 |
+| `-wait` | Wait time in seconds between requests to the same host. Controls the crawling interval. | 3 |
+| `-user-agent` | User-Agent string to use for HTTP requests | github.com/sekika/linkchecker |
+
+### Examples
+
+  - Exclude internal links and set the timeout to 5 seconds:
+
+<!-- end list -->
+
+```bash
+linkchecker -u https://example.com -no-internal -timeout 5
+```
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/sekika/linkchecker.svg)](https://pkg.go.dev/github.com/sekika/linkchecker)
